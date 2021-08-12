@@ -29,6 +29,7 @@ class InputWithKeyboardControl extends EditableText {
   final bool showButton;
 
   InputWithKeyboardControl({
+    Key? key,
     required TextEditingController controller,
     TextStyle style = const TextStyle(color: Colors.black, fontSize: 18),
     Color cursorColor = Colors.black,
@@ -44,6 +45,7 @@ class InputWithKeyboardControl extends EditableText {
     this.showUnderline = true,
     this.showButton = true,
   }) : super(
+          key: key,
           controller: controller,
           focusNode: focusNode,
           style: style,
