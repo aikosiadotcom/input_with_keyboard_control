@@ -27,6 +27,8 @@ class InputWithKeyboardControl extends EditableText {
 
   /// showButton is responsible for showing or not the button to control the keyboard, default value is true
   final bool showButton;
+  
+  final String? placeholder;
 
   InputWithKeyboardControl({
     Key? key,
@@ -44,6 +46,7 @@ class InputWithKeyboardControl extends EditableText {
     this.underlineColor = Colors.black,
     this.showUnderline = true,
     this.showButton = true,
+    this.placeholder = null
   }) : super(
           key: key,
           controller: controller,
@@ -66,7 +69,8 @@ class InputWithKeyboardControl extends EditableText {
         buttonColorDisabled,
         underlineColor,
         showUnderline,
-        showButton);
+        showButton,
+        placeholder);
   }
 }
 
@@ -97,6 +101,8 @@ class InputWithKeyboardControlState extends EditableTextState {
 
   // funcionListener is responsible for controller focusNode listener
   late Function funcionListener;
+  
+  final String? placeholder;
 
   @override
   void initState() {
@@ -122,7 +128,8 @@ class InputWithKeyboardControlState extends EditableTextState {
       this.buttonColorDisabled,
       this.underlineColor,
       this.showUnderline,
-      this.showButton);
+      this.showButton,
+      this.placeholder);
 
   toggleShowKeyboard(bool value) {
     setState(() {
@@ -155,7 +162,10 @@ class InputWithKeyboardControlState extends EditableTextState {
                       ? UnderlineTabIndicator(
                           borderSide: BorderSide(color: underlineColor),
                         )
-                      : null,
+                      : InputDecoration(
+              border: InputBorder.none,
+              hintText: placeholder == null ? "" : placeholder
+            ),
                   child: widget),
             ),
             SizedBox(
