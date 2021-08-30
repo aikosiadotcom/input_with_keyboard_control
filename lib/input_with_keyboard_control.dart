@@ -27,37 +27,40 @@ class InputWithKeyboardControl extends EditableText {
 
   /// showButton is responsible for showing or not the button to control the keyboard, default value is true
   final bool showButton;
-  
+
   final String? placeholder;
 
-  InputWithKeyboardControl({
-    Key? key,
-    required TextEditingController controller,
-    TextStyle style = const TextStyle(color: Colors.black, fontSize: 18),
-    Color cursorColor = Colors.black,
-    bool autofocus = false,
-    Color? selectionColor,
-    this.startShowKeyboard = false,
-    void Function(String)? onSubmitted,
-    required this.focusNode,
-    required this.width,
-    this.buttonColorEnabled = Colors.blue,
-    this.buttonColorDisabled = Colors.black,
-    this.underlineColor = Colors.black,
-    this.showUnderline = true,
-    this.showButton = true,
-    this.placeholder = null
-  }) : super(
-          key: key,
-          controller: controller,
-          focusNode: focusNode,
-          style: style,
-          cursorColor: cursorColor,
-          autofocus: autofocus,
-          selectionColor: selectionColor,
-          backgroundCursorColor: Colors.black,
-          onSubmitted: onSubmitted,
-        );
+  final TextCapitalization textCapitalization;
+
+  InputWithKeyboardControl(
+      {Key? key,
+      required TextEditingController controller,
+      TextStyle style = const TextStyle(color: Colors.black, fontSize: 18),
+      Color cursorColor = Colors.black,
+      bool autofocus = false,
+      Color? selectionColor,
+      this.startShowKeyboard = false,
+      void Function(String)? onSubmitted,
+      required this.focusNode,
+      required this.width,
+      this.buttonColorEnabled = Colors.blue,
+      this.buttonColorDisabled = Colors.black,
+      this.underlineColor = Colors.black,
+      this.showUnderline = true,
+      this.showButton = true,
+      this.placeholder = null,
+      this.textCapitalization = TextCapitalization.characters})
+      : super(
+            key: key,
+            controller: controller,
+            focusNode: focusNode,
+            style: style,
+            cursorColor: cursorColor,
+            autofocus: autofocus,
+            selectionColor: selectionColor,
+            backgroundCursorColor: Colors.black,
+            onSubmitted: onSubmitted,
+            textCapitalization: TextCapitalization.characters);
 
   @override
   EditableTextState createState() {
@@ -101,7 +104,7 @@ class InputWithKeyboardControlState extends EditableTextState {
 
   // funcionListener is responsible for controller focusNode listener
   late Function funcionListener;
-  
+
   final String? placeholder;
 
   @override
@@ -162,10 +165,7 @@ class InputWithKeyboardControlState extends EditableTextState {
                       ? UnderlineTabIndicator(
                           borderSide: BorderSide(color: underlineColor),
                         )
-                      : InputDecoration(
-              border: InputBorder.none,
-              hintText: placeholder == null ? "" : placeholder
-            ),
+                      : null,
                   child: widget),
             ),
             SizedBox(
