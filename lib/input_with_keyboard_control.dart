@@ -19,11 +19,13 @@ class InputWithKeyboardControl extends EditableText {
   /// buttonColorDisabled is responsible for set color in button when is disabled, default value is Colors.black
   final Color buttonColorDisabled;
 
+  Color cursorColor = Colors.black;
+
   /// underlineColor is responsible for set color in underline BorderSide, default value is Colors.black
-  final Color underlineColor;
+  // final Color underlineColor;
 
   /// showUnderline is responsible for showing or not the underline in the widget, default value is true
-  final bool showUnderline;
+  // final bool showUnderline;
 
   /// showButton is responsible for showing or not the button to control the keyboard, default value is true
   final bool showButton;
@@ -36,7 +38,7 @@ class InputWithKeyboardControl extends EditableText {
       {Key? key,
       required TextEditingController controller,
       TextStyle style = const TextStyle(color: Colors.black, fontSize: 18),
-      Color cursorColor = Colors.black,
+      this.cursorColor = Colors.black,
       bool autofocus = false,
       Color? selectionColor,
       this.startShowKeyboard = false,
@@ -45,10 +47,10 @@ class InputWithKeyboardControl extends EditableText {
       required this.width,
       this.buttonColorEnabled = Colors.blue,
       this.buttonColorDisabled = Colors.black,
-      this.underlineColor = Colors.black,
-      this.showUnderline = true,
+      // this.underlineColor = Colors.black,
+      // this.showUnderline = true,
       this.showButton = true,
-      this.placeholder = null,
+      this.placeholder,
       this.textCapitalization = TextCapitalization.characters})
       : super(
             key: key,
@@ -70,10 +72,12 @@ class InputWithKeyboardControl extends EditableText {
         width,
         buttonColorEnabled,
         buttonColorDisabled,
-        underlineColor,
-        showUnderline,
+        cursorColor,
+        // underlineColor,
+        // showUnderline,
         showButton,
-        placeholder);
+        placeholder,
+        textCapitalization);
   }
 }
 
@@ -93,11 +97,11 @@ class InputWithKeyboardControlState extends EditableTextState {
   /// buttonColorDisabled is responsible for set color in button when is disabled, default value is Colors.black
   final Color buttonColorDisabled;
 
-  /// underlineColor is responsible for set color in underline BorderSide, default value is Colors.black
-  final Color underlineColor;
+  // /// underlineColor is responsible for set color in underline BorderSide, default value is Colors.black
+  // final Color underlineColor;
 
-  /// showUnderline is responsible for showing or not the underline in the widget, default value is true
-  final bool showUnderline;
+  // /// showUnderline is responsible for showing or not the underline in the widget, default value is true
+  // final bool showUnderline;
 
   /// showButton is responsible for showing or not the button to control the keyboard, default value is true
   final bool showButton;
@@ -106,6 +110,9 @@ class InputWithKeyboardControlState extends EditableTextState {
   late Function funcionListener;
 
   final String? placeholder;
+
+  final TextCapitalization textCapitalization;
+  Color cursorColor = Colors.black;
 
   @override
   void initState() {
@@ -129,10 +136,12 @@ class InputWithKeyboardControlState extends EditableTextState {
       this.width,
       this.buttonColorEnabled,
       this.buttonColorDisabled,
-      this.underlineColor,
-      this.showUnderline,
+      this.cursorColor,
+      // this.underlineColor,
+      // this.showUnderline,
       this.showButton,
-      this.placeholder);
+      this.placeholder,
+      this.textCapitalization);
 
   toggleShowKeyboard(bool value) {
     setState(() {
@@ -161,12 +170,12 @@ class InputWithKeyboardControlState extends EditableTextState {
           children: [
             Expanded(
               child: Container(
-                  decoration: showUnderline
-                      ? UnderlineTabIndicator(
-                          borderSide: BorderSide(color: underlineColor),
-                        )
-                      : null,
-                  child: widget),
+                  child: InputDecorator(
+                      decoration: InputDecoration(
+                          labelText: placeholder,
+                          border: InputBorder.none,
+                          labelStyle: TextStyle(color: cursorColor)),
+                      child: widget)),
             ),
             SizedBox(
               width: size.width * 0.01,
